@@ -1,0 +1,90 @@
+-- liquibase formatted sql
+
+-- changeset 1618977818:schema
+-- create table departments
+-- (
+--     id         int unsigned auto_increment primary key,
+--     name       varchar(255) not null,
+--     type       varchar(50)  not null,
+--     parent_id  int unsigned default null,
+--     created_at timestamp    default now(),
+--     updated_at timestamp    default now()
+-- );
+--
+-- create table users
+-- (
+--     id            int unsigned auto_increment primary key,
+--     name          varchar(255)        not null,
+--     username      varchar(255) unique not null,
+--     password      varchar(255)        not null,
+--     email         varchar(255) unique default null,
+--     phone         varchar(255)        default null,
+--     address       varchar(255)        default null,
+--     role          varchar(50)         not null,
+--     department_id int unsigned        default null,
+--     deleted_at    timestamp           default null,
+--     created_at    timestamp           default now(),
+--     updated_at    timestamp           default now()
+-- );
+--
+-- create table equipments
+-- (
+--     id         int unsigned auto_increment primary key,
+--     name       varchar(255)   not null,
+--     price      decimal(15, 2) not null,
+--     quantity   int unsigned   not null default 0,
+--     created_at timestamp               default now(),
+--     updated_at timestamp               default now()
+-- );
+--
+-- CREATE TABLE `demands`
+-- (
+--     `id`            int unsigned auto_increment primary key,
+--     `department_id` int unsigned not null,
+--     `description`   text      default null,
+--     `status`        varchar(20)  not null,
+--     `created_by`    int unsigned not null,
+--     `created_at`    timestamp default now(),
+--     `updated_at`    timestamp default now()
+-- );
+--
+-- CREATE TABLE `equipment_demand`
+-- (
+--     `equipment_id` int unsigned,
+--     `demand_id`    int unsigned,
+--     `quantity`     bigint,
+--     PRIMARY KEY (`equipment_id`, `demand_id`)
+-- );
+--
+--
+-- CREATE TABLE `demand_approvals`
+-- (
+--     `id`          int unsigned auto_increment primary key,
+--     `demand_id`   int unsigned not null,
+--     `approved_by` int unsigned not null,
+--     `approved`    boolean      not null default false,
+--     `created_at`  timestamp             default now(),
+--     `updated_at`  timestamp             default now()
+-- );
+--
+-- ALTER TABLE `equipment_demand`
+--     ADD CONSTRAINT fk_equipment_demand_demand_id FOREIGN KEY (`demand_id`) REFERENCES `demands` (`id`);
+--
+-- ALTER TABLE `equipment_demand`
+--     ADD CONSTRAINT fk_equipment_demand_equipment_id FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`id`);
+--
+-- ALTER TABLE `demand_approvals`
+--     ADD CONSTRAINT fk_demand_approval_demand_id FOREIGN KEY (`demand_id`) REFERENCES `demands` (`id`);
+--
+-- ALTER TABLE `demands`
+--     ADD CONSTRAINT fk_demand_user_id FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
+--
+-- ALTER TABLE `demand_approvals`
+--     ADD CONSTRAINT fk_demand_approval_user FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`);
+--
+-- ALTER TABLE `demands`
+--     ADD CONSTRAINT fk_demand_department_id FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`);
+--
+-- ALTER TABLE `departments`
+--     ADD CONSTRAINT fk_departments_parent_id FOREIGN KEY (`parent_id`) REFERENCES `departments` (`id`);
+-- rollback

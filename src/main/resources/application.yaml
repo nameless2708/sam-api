@@ -1,0 +1,25 @@
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:mysql://database-sam.devstack.cloud:32705/sam?useUnicode=yes&characterEncoding=utf8&characterResultSets=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    username: sam
+    password: sam@123
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        ddl-auto: false
+        format_sql: true
+    show-sql: true
+  redis:
+    password:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-wait: 2s
+    timeout: 1s
+app:
+  initial-admin-username: admin
+  initial-admin-password: admin@123
